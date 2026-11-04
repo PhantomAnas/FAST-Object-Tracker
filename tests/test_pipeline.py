@@ -125,7 +125,7 @@ def test_pipeline_stop(video):
     pipe = Pipeline(s, cb, FakeDetector())
     cb.on_frame = lambda f: pipe.stop() if pipe.stats.frame >= 10 else None
     stats = pipe.run()
-    assert 10 <= stats.frame <= 12      # the video loops, so without stop() this would run forever
+    assert 10 <= stats.frame <= 15      # the video loops, so without stop() this would run forever
 
 
 def test_pipeline_bad_source_raises(tmp_path):

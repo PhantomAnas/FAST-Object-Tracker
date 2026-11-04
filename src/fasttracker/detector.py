@@ -65,7 +65,8 @@ class Detector:
         try:
             from ultralytics import YOLO
         except Exception as exc:  # noqa: BLE001
-            raise DetectorError("Ultralytics is not installed. Run: pip install ultralytics") from exc
+            raise DetectorError(f"Ultralytics could not be imported ({type(exc).__name__}: {exc}). "
+                                "Run: pip install ultralytics") from exc
         path = self.model_path
         custom = path not in KNOWN_MODELS
         if custom and not os.path.isfile(path):

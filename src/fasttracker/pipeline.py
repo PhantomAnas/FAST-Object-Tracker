@@ -67,6 +67,7 @@ class Pipeline:
         self.serial: SerialLink | None = None
         self.stats = Stats()
         self.stats_interval = 0.5
+        self.error = ""          # set when the loop ended because of a failure
 
     # ------------------------------------------------------------ control
     def stop(self) -> None:
@@ -198,7 +199,8 @@ class Pipeline:
                         break
                     self._status("source", False)
                     if not s.reconnect:
-                        self._say("error", "the source stopped delivering frames")
+                        self.error = "the source stopped delivering frames"
+                        self._say("error", self.error)
                         break
                     self._say("warn", "source lost; reconnecting...")
                     if src.reconnect():
@@ -206,7 +208,8 @@ class Pipeline:
                         self._say("ok", "source reconnected")
                         continue
                     if src.reconnects >= 20:
-                        self._say("error", "could not reconnect after 20 attempts")
+                        self.error = "could not reconnect after 20 attempts"
+                        self._say("error", self.error)
                         break
                     continue
                 frame_index += 1
@@ -227,6 +230,7 @@ class Pipeline:
                     try:
                         tracks = det.track(frame, s.conf, s.iou, s.imgsz, class_ids, s.max_det)
                     except DetectorError as exc:
+                        self.error = str(exc)
                         self._say("error", str(exc))
                         break
                     infer_ms = (time.time() - t0) * 1000
@@ -264,6 +268,7 @@ class Pipeline:
                     self._save_snapshot(frame, "snapshot")
 
                 # Stats / display
+                self.stats.frame = frame_index
                 fps_frames += 1
                 now = time.time()
                 if now - t_fps >= 1.0:
@@ -272,7 +277,6 @@ class Pipeline:
                 if self.cb.on_frame and now - last_display >= display_interval:
                     last_display = now
                     self.cb.on_frame(frame)
-                self.stats.frame = frame_index
                 if self.cb.on_stats and now - last_stats >= self.stats_interval:
                     last_stats = now
                     self.stats = Stats(frame_index, fps, infer_ms, self.counter.totals.as_dict(), self.counter.totals.total(),

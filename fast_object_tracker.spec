@@ -11,7 +11,8 @@ root = os.path.abspath(".")
 
 datas = [(os.path.join(root, "assets", "icon.png"), "assets")]
 datas += collect_data_files("ultralytics", includes=["**/*.yaml"])
-hiddenimports = collect_submodules("ultralytics") + ["serial", "serial.tools.list_ports"]
+# scipy is imported lazily by the trackers (linear assignment) and its array_api shims are not found by analysis.
+hiddenimports = collect_submodules("ultralytics") + collect_submodules("scipy") + ["serial", "serial.tools.list_ports"]
 
 a = Analysis(
     [os.path.join(root, "launcher.py")],
@@ -21,7 +22,8 @@ a = Analysis(
     hiddenimports=hiddenimports,
     hookspath=[],
     runtime_hooks=[],
-    excludes=["tkinter", "matplotlib", "pandas", "scipy", "IPython", "notebook", "PySide6.QtWebEngineCore",
+    # ultralytics imports matplotlib (and lazily pandas/scipy) so those must stay in.
+    excludes=["tkinter", "IPython", "notebook", "PySide6.QtWebEngineCore",
               "PySide6.QtWebEngineWidgets", "PySide6.Qt3DCore", "PySide6.QtQuick", "PySide6.QtQml", "PySide6.QtMultimedia"],
     noarchive=False,
     cipher=block_cipher,

@@ -33,6 +33,9 @@ jobs:
         run: |
           $p = Start-Process -FilePath dist\FASTObjectTracker.exe -ArgumentList '--cli --version' -Wait -PassThru -NoNewWindow
           if ($p.ExitCode -ne 0) { throw "exe returned $($p.ExitCode)" }
+          python scripts\make_samples.py sample.mp4
+          $p = Start-Process -FilePath dist\FASTObjectTracker.exe -ArgumentList '--cli --source sample.mp4 --no-loop --max-frames 5 --no-log --classes all --imgsz 320' -Wait -PassThru -NoNewWindow
+          if ($p.ExitCode -ne 0) { throw "exe tracking run returned $($p.ExitCode)" }
       - name: Zip
         shell: pwsh
         run: Compress-Archive -Path dist\FASTObjectTracker.exe -DestinationPath FASTObjectTracker-windows.zip

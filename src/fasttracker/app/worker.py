@@ -66,6 +66,9 @@ class PipelineWorker(QObject):
         except Exception:  # noqa: BLE001
             self._emit(self.failed, "unexpected error:\n" + traceback.format_exc())
             return
+        if self.pipeline.error:
+            self._emit(self.failed, self.pipeline.error)
+            return
         self._emit(self.finished, stats)
 
     def stop(self) -> None:

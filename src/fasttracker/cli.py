@@ -193,4 +193,4 @@ def main(argv: list[str] | None = None) -> int:
     for name, v in sorted(stats.totals.items()):
         print(f"{name}: {sum(v.values())}  (in {v['in']}, out {v['out']}, touch {v['touch']})")
     print(f"total: {stats.total}")
-    return 0
+    return 1 if pipe.error else 0
