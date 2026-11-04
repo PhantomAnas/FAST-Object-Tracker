@@ -1,0 +1,13 @@
+# Runtime dependencies (same as pyproject.toml). Install PyTorch first for a CPU-only build:
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+ultralytics>=8.2
+opencv-python>=4.8
+numpy>=1.24
+PySide6-Essentials>=6.5
+platformdirs>=3
+pyserial>=3.5
+
+# Development (tests)
+pytest>=7
+pytest-timeout>=2

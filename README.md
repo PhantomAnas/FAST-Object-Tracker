@@ -31,7 +31,7 @@ cd FAST-Object-Tracker
 python -m venv .venv
 .venv\Scripts\activate          # Linux/macOS: source .venv/bin/activate
 pip install torch --index-url https://download.pytorch.org/whl/cpu   # or a CUDA build from pytorch.org
-pip install -e .
+pip install -e .                 # or: pip install -r requirements.txt
 python -m fasttracker
 ```
 
