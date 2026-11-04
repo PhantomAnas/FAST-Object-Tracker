@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.venv/
+venv/
+
+# Model weights are never committed (base models download on first use)
+*.pt
+*.onnx
+*.engine
+
+# Local media and outputs
+sample.mp4
+*.mp4
+*.avi
+*.mkv
+!docs/*.png
+*.csv
+logs/
+out/
+snapshots/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

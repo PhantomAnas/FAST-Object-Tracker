@@ -1,0 +1,45 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fast-object-tracker"
+version = "0.1.0"
+description = "Count objects crossing or touching a line on a webcam, video file or RTSP/CCTV stream with YOLO - alarms, CSV logs and optional Arduino output."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "AGPL-3.0-or-later" }
+authors = [{ name = "Anas" }]
+keywords = ["object counting", "object tracking", "yolo", "yolo11", "ultralytics", "line crossing", "people counter",
+            "vehicle counter", "rtsp", "cctv", "opencv", "arduino", "pyside6", "computer vision"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+dependencies = [
+    "ultralytics>=8.2",
+    "opencv-python>=4.8",
+    "numpy>=1.24",
+    "PySide6-Essentials>=6.5",
+    "platformdirs>=3",
+    "pyserial>=3.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=7", "pytest-timeout>=2", "pyinstaller>=6"]
+
+[project.scripts]
+fasttracker = "fasttracker.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/PhantomAnas/FAST-Object-Tracker"
+Issues = "https://github.com/PhantomAnas/FAST-Object-Tracker/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+timeout = 180
