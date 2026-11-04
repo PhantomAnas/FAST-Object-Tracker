@@ -1,4 +1,4 @@
-"""PyInstaller entry point."""
+"""Runs the app straight from a checkout without installing (python launcher.py)."""
 
 import os
 import sys

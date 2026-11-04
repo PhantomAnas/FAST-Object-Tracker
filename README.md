@@ -21,11 +21,9 @@ A free, open-source desktop object counter for Windows and Linux. Point it at a 
 - **Command line**: everything is scriptable with `--cli`.
 - Dark, flat, professional interface. Settings are saved automatically.
 
-## Download
+## Install
 
-Grab `FASTObjectTracker.exe` from the [Releases](https://github.com/PhantomAnas/FAST-Object-Tracker/releases) page (Windows, no install). The exe bundles PyTorch CPU and is large (several hundred MB). On first start the YOLO11 nano weights (about 6 MB) download next to the exe.
-
-## Run from source
+There is no packaged exe: a standalone build would have to bundle PyTorch and weigh close to 1 GB, so the app is installed from source with pip (a few minutes, once). The YOLO11 nano weights (about 6 MB) download on the first run.
 
 ```bash
 git clone https://github.com/PhantomAnas/FAST-Object-Tracker.git
@@ -37,7 +35,7 @@ pip install -e .
 python -m fasttracker
 ```
 
-Python 3.10 or newer. For a GPU install the matching CUDA build of PyTorch first, then pick *CUDA GPU* in the Model card (or leave *Auto*).
+Python 3.10 or newer. After that, `python -m fasttracker` (or `fasttracker`) starts the window; the `.venv` must be active. For a GPU install the matching CUDA build of PyTorch first, then pick *CUDA GPU* in the Model card (or leave *Auto*).
 
 ## Quick start
 
