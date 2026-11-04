@@ -119,12 +119,13 @@ def test_pipeline_reset_and_line_move(video, tmp_path):
 
 
 def test_pipeline_stop(video):
-    s = TrackerSettings(source_kind="file", file_path=video, loop_file=True, classes=["person"], log_csv=False)
+    s = TrackerSettings(source_kind="file", file_path=video, loop_file=True, classes=["person"], log_csv=False,
+                        display_fps=100000)
     cb = Callbacks()
     pipe = Pipeline(s, cb, FakeDetector())
     cb.on_frame = lambda f: pipe.stop() if pipe.stats.frame >= 10 else None
     stats = pipe.run()
-    assert 10 <= stats.frame < 60
+    assert 10 <= stats.frame <= 12      # the video loops, so without stop() this would run forever
 
 
 def test_pipeline_bad_source_raises(tmp_path):
