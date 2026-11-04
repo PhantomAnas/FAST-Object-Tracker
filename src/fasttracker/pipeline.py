@@ -235,7 +235,7 @@ class Pipeline:
 
                 # Events -> alarms / serial / log
                 for ev in events:
-                    flash_until = time.time() + 0.25
+                    flash_until = time.time() + 0.12
                     if self.cb.on_event:
                         self.cb.on_event(ev, self.counter.totals.total())
                     if log_writer:

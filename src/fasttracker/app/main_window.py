@@ -22,7 +22,7 @@ from . import icons, theme, widgets as w
 from .worker import ClassProbe, PipelineWorker, PortProbe, ProbeSignals, WebcamProbe
 
 DOCS_URL = "https://github.com/PhantomAnas/FAST-Object-Tracker"
-LEVEL_COLORS = {"info": theme.MUTED, "ok": theme.GREEN, "warn": theme.ORANGE, "error": theme.RED}
+LEVEL_COLORS = {"info": theme.MUTED_HEX, "ok": theme.GREEN, "warn": theme.ORANGE, "error": theme.RED}
 
 
 def _open_folder(path: str) -> None:
@@ -861,11 +861,11 @@ class MainWindow(QMainWindow):
     def log(self, level: str, text: str) -> None:
         stamp = dt.datetime.now().strftime("%H:%M:%S")
         fmt = QTextCharFormat()
-        fmt.setForeground(QColor(LEVEL_COLORS.get(level, theme.MUTED)))
+        fmt.setForeground(QColor(LEVEL_COLORS.get(level, theme.MUTED_HEX)))
         cursor = self.log_view.textCursor()
         cursor.movePosition(QTextCursor.MoveOperation.End)
         dim = QTextCharFormat()
-        dim.setForeground(QColor(theme.FAINT))
+        dim.setForeground(QColor(theme.FAINT_HEX))
         cursor.insertText(f"{stamp}  ", dim)
         cursor.insertText(text + "\n", fmt)
         self.log_view.setTextCursor(cursor)

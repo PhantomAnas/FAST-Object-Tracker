@@ -166,7 +166,7 @@ class FilePicker(QWidget):
         lay.setContentsMargins(0, 0, 0, 0)
         lay.setSpacing(8)
         ic = QLabel()
-        ic.setPixmap(icons.pixmap(icon_name, 16, theme.MUTED_HEX if hasattr(theme, "MUTED_HEX") else "#9aa0a8", dpr=self.devicePixelRatioF()))
+        ic.setPixmap(icons.pixmap(icon_name, 16, theme.MUTED_HEX, dpr=self.devicePixelRatioF()))
         lay.addWidget(ic)
         text = QVBoxLayout()
         text.setSpacing(0)
@@ -302,8 +302,7 @@ class VideoView(QWidget):
             p.drawImage(r, self._img)
         else:
             p.fillRect(r, QColor("#15181c"))
-            p.setPen(QColor(theme.FAINT.replace("rgba(230,232,236,0.36)", "#6b7078")))
-            p.setPen(QColor(110, 115, 125))
+            p.setPen(QColor(theme.FAINT_HEX))
             f = QFont()
             f.setPointSize(10)
             p.setFont(f)
